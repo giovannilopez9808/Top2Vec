@@ -6,7 +6,7 @@ def get_params() -> dict:
         "path data": "Data",
         "path results": "Results",
         "path graphics": "Graphics",
-        "model name": "Model.h5",
+        "news model": "news_model.h5",
     }
     mkdir(params["path results"])
     mkdir(params["path graphics"])

@@ -7,6 +7,9 @@ def get_params() -> dict:
         "path results": "Results",
         "path graphics": "Graphics",
         "news model": "news_model.h5",
+        "yahoo model": "yahoo_model.h5",
+        "yahoo data": "train.csv",
+        "yahoo topics": "classes.txt",
     }
     mkdir(params["path results"])
     mkdir(params["path graphics"])

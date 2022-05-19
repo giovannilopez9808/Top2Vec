@@ -27,8 +27,7 @@ def create_topic_name(topic_words: list, index: int) -> str:
     return text
 
 
-def get_hierarchy_topic(top2vec_model: Callable) -> dict:
-    num_clusters = 20
+def get_hierarchy_topic(top2vec_model: Callable, num_clusters: int) -> dict:
     hierarchy = top2vec_model.hierarchical_topic_reduction(num_clusters)
     hierarchy_dict = dict(
         sum([[(raw_id, i) for raw_id in mapping]

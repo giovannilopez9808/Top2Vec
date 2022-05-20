@@ -3,10 +3,10 @@ from os import makedirs
 
 def get_params() -> dict:
     params = {
-        "path data": "../Data",
-        "path results": "../Results",
-        "path models": "../Models",
-        "path graphics": "../Graphics",
+        "path data": ".Data",
+        "path results": "Results",
+        "path models": "Models",
+        "path graphics": "Graphics",
         "news model": "news_model.h5",
         "yahoo model": "yahoo_model.h5",
         "path yahoo": "Yahoo",

@@ -1,0 +1,33 @@
+%------------------------------------------------
+% Create title frame
+\titleframe
+
+%------------------------------------------------
+% No TOC to speed up compilation
+%\begin{frame}{Overview}
+%  \tableofcontents[hideallsubsections]
+%\end{frame}
+
+\section{Example section frame}
+%-----------------
+
+\begin{frame}{A frame title}
+\framesubtitle{A frame subtitle}
+  This is an example of a regular frame with some text. 
+\end{frame}
+
+%--
+
+\begin{frame}
+  \frametitle{Beamer block}
+  \framesubtitle{Example of beamer boxes}
+  \begin{block}{Regular block}
+    Just a regular block
+  \end{block}
+  \begin{alertblock}{Alert block}
+    Some important thing
+  \end{alertblock}
+  \begin{exampleblock}{Example block}
+    No difference with regular block to avoid excessive distraction
+  \end{exampleblock}
+\end{frame}

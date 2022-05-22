@@ -1,0 +1,221 @@
+% \iffalse meta-comment -------------------------------------------------------
+% Copyright (C) 2021 Thomas Lambert <trigon@thl.ovh>
+% Other contributors to this theme are listed here:
+%     https://gitlab.com/thlamb/beamertheme-trigon/-/graphs/master
+%
+% The original template was heavily inspired by Metropolis from Matthias
+% Vogelgesang.
+%
+% License CC-BY-SA 4.0
+% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+% International License (https://creativecommons.org/licenses/by-sa/4.0/)
+% ------------------------------------------------------------------------- \fi
+% \iffalse
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemetrigon}[2022/05/08 v0.6.6 Trigon color theme]
+%</package>
+% \fi
+% \CheckSum{0}
+% \StopEventually{}
+% \iffalse
+%<*package>
+% ------------------------------------------------------------------------- \fi
+%
+% \subsection{\themename color theme}
+%
+% A |beamer| color theme sets the colors used for the different elements of the
+% document.
+%
+% \subsubsection{Package dependencies}
+%    \begin{macrocode}
+\RequirePackage{pgfopts}
+%    \end{macrocode}
+%
+% \subsubsection{Options}
+%
+% \begin{macro}{colors}
+%  Provides the option to have a dark background and light foreground instead
+%  of the reverse.
+%    \begin{macrocode}
+\pgfkeys{
+  /trigon/color/background/.cd,
+  .is choice,
+  dark/.code=\trigon@colors@dark,
+  light/.code=\trigon@colors@light
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{headingcolor}
+% Select the color to use for all headings (title, section, frame, etc.).
+%    \begin{macrocode}
+\def\headcol{tDefaulttxt}
+\pgfkeys{
+  /trigon/color/headingcolor/.cd,
+  .is choice,
+  default/.code=\def\headcol{tTxt},
+  theme/.code=\def\headcol{tPrim}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{textcolor}
+% Select the color to use for all headings (title, section, frame, etc.).
+%    \begin{macrocode}
+\def\txtcol{black}
+\pgfkeys{
+  /trigon/color/textcolor/.cd,
+  .is choice,
+  default/.code=\def\txtcol{tTxt},
+  theme/.code=\def\txtcol{tPrim!50!tTxt}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{block}
+% Optionally removes the light grey background to block environments like
+% |theorem| and |example|.
+%    \begin{macrocode}
+\pgfkeys{
+  /trigon/color/block/.cd,
+  .is choice,
+  transparent/.code=\trigon@block@transparent,
+  fill/.code=\trigon@block@fill
+}
+%
+% \begin{macro}{\trigon@color@setdefaults}
+% Sets default values for color theme options.
+%    \begin{macrocode}
+\newcommand{\trigon@color@setdefaults}{
+  \pgfkeys{/trigon/color/.cd,
+    background=light,
+    block=fill,
+    headingcolor=default,
+    textcolor=default
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Base colors}
+%
+%    \begin{macrocode}
+\definecolor{tGreenBlue}{HTML}{00707F}
+\definecolor{tGreenBlueLight}{HTML}{5FA4B0}
+\definecolor{tOrange}{HTML}{F07F3C}
+\definecolor{tYellowOrange}{HTML}{F8AA00}
+\definecolor{tBeigePale}{HTML}{E6E6E1}
+\definecolor{tBeige}{HTML}{C6C0B4}
+\definecolor{tDarkBg}{HTML}{232931}
+\definecolor{tDarkFg}{HTML}{EEEEEE}
+\definecolor{tLightBg}{HTML}{FFFFFF}
+%    \end{macrocode}
+%
+% \subsubsection{Derived elements}
+%
+% All the elements are set using the base colors defined here above.
+%    \begin{macrocode}
+\newcommand{\trigon@colors@dark}{
+  \colorlet{tPrim}{tGreenBlueLight}
+  \colorlet{tSec}{tGreenBlue}
+  \colorlet{tAccent}{tYellowOrange}
+  \colorlet{tTxt}{tDarkFg}
+  \colorlet{tBg}{tDarkBg}
+  \colorlet{tGreyBg}{tGrey!7!tBg}
+}
+\newcommand{\trigon@colors@light}{
+  \colorlet{tPrim}{tGreenBlue}
+  \colorlet{tSec}{tGreenBlue}
+  \colorlet{tAccent}{tOrange}
+  \colorlet{tTxt}{black}
+  \colorlet{tBg}{tLightBg}
+  \colorlet{tGreyBg}{tGrey!25!tBg}
+}
+\colorlet{tGrey}{tBeige}
+\colorlet{tTheme}{tGreenBlue}
+\setbeamercolor{background canvas}{bg=tBg}
+\setbeamercolor{normal text}{fg=\txtcol, bg=tBg}
+\setbeamercolor{example text}{fg=tPrim}
+\setbeamercolor{alerted text}{fg=tAccent}
+
+\setbeamercolor{title}{fg=\headcol, bg= , parent=normal text}
+\setbeamercolor{titlelike}{use=title, parent=title}
+\setbeamercolor{author}{use=normal text, bg= , parent=normal text}
+\setbeamercolor{date}{use=normal text, bg= , parent=normal text}
+\setbeamercolor{institute}{use=normal text, parent=normal text}
+\setbeamercolor{structure}{use=normal text, fg=normal text.fg}
+
+\setbeamercolor{palette primary}{use=titlelike, parent=titlelike}
+\setbeamercolor{frametitle}{use=titlelike, parent=titlelike}
+%    \end{macrocode}
+%
+%
+% Block environments such as |theorem| and |example| have a grey-tinted background
+% color by default. The option |block=transparent| removes the background color.
+%    \begin{macrocode}
+\newcommand{\trigon@block@transparent}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=normal text.bg!96!fg
+  }
+  \setbeamercolor{block body}{
+    use={block title, normal text},
+    bg=block title.bg!35!normal text.bg
+  }
+}
+\newcommand{\trigon@block@fill}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=normal text.bg!80!normal text.fg
+  }
+  \setbeamercolor{block body}{
+    use={block title, normal text},
+    bg=block title.bg!50!normal text.bg
+  }
+}
+
+\setbeamercolor{block title alerted}{%
+  use={block title, alerted text},
+  bg=block title.bg,
+  fg=alerted text.fg
+}
+\setbeamercolor{block title example}{%
+  use={block title, example text},
+  bg=block title.bg,
+  fg=example text.fg
+}
+\setbeamercolor{block body alerted}{use=block body, parent=block body}
+\setbeamercolor{block body example}{use=block body, parent=block body}
+%    \end{macrocode}
+%
+% The color of other smaller elements is defined as follows
+%    \begin{macrocode}
+\setbeamercolor{footnote}{fg=normal text.fg!90!normal text.bg}
+\setbeamercolor{footnote mark}{fg=.}
+\setbeamercolor{footline}{fg=normal text.fg!50!normal text.bg, parent=normal text}
+\setbeamercolor{caption}{fg=normal text.fg!60!normal text.bg, parent=normal text}
+
+\setbeamercolor{itemize item}{use=example text, parent=example text}
+\setbeamercolor{itemize subitem}{use=itemize item, parent=itemize item}
+\setbeamercolor{itemize subsubitem}{use=itemize item, parent=itemize item}
+\setbeamercolor{enumerate item}{use=example text, parent=example text}
+\setbeamercolor{enumerate subitem}{use=enumerate item, parent=enumerate item}
+\setbeamercolor{enumerate subsubitem}{use=enumerate item, parent=enumerate item}
+\setbeamercolor{description item}{use=example text, parent=example text}
+%    \end{macrocode}
+%
+% \subsubsection{Process package options}
+%
+%    \begin{macrocode}
+\trigon@color@setdefaults
+\ProcessPgfPackageOptions{/trigon/color}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+% \Finale
+\endinput

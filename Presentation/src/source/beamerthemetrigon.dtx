@@ -1,0 +1,153 @@
+% \iffalse meta-comment -------------------------------------------------------
+% Copyright (C) 2021 Thomas Lambert <trigon@thl.ovh>
+% Other contributors to this theme are listed here:
+%     https://gitlab.com/thlamb/beamertheme-trigon/-/graphs/master
+%
+% The original template was heavily inspired by Metropolis from Matthias
+% Vogelgesang.
+%
+% License CC-BY-SA 4.0
+% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+% International License (https://creativecommons.org/licenses/by-sa/4.0/)
+% ------------------------------------------------------------------------- \fi
+% \iffalse
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemetrigon}[2022/05/08 v0.6.6 Trigon Beamer theme]
+%</package>
+% \fi
+% \CheckSum{0}
+% \StopEventually{}
+% \iffalse
+%<*package>
+% ------------------------------------------------------------------------- \fi
+%
+%
+% \subsection{\themename parent theme}
+%
+% The primary job of this package is to load the component sub-packages of the
+% \themename theme and route the theme options accordingly. It also
+% provides some custom commands and environments for the user.
+%
+% \subsubsection{Package dependencies}
+%
+%    \begin{macrocode}
+\RequirePackage{pgfopts}
+\RequirePackage{tikz}
+%    \end{macrocode}
+%
+%\subsubsection{Options}
+%
+% Most options are passed off to the component sub-packages.
+%    \begin{macrocode}
+\pgfkeys{/trigon/.cd,
+  .search also={
+    /trigon/inner,
+    /trigon/outer,
+    /trigon/color,
+    /trigon/font
+  }
+}
+%    \end{macrocode}
+%
+% \begin{macro}{titleformat plain}
+% Controls the formatting of the text on standout ``plain'' frames.
+%    \begin{macrocode}
+\pgfkeys{
+  /trigon/titleformat plain/.cd,
+  .is choice,
+  regular/.code={%
+    \let\trigon@plaintitleformat\@empty%
+    \setbeamerfont{standout}{shape=\normalfont}%
+  },
+  smallcaps/.code={%
+    \let\trigon@plaintitleformat\@empty%
+    \setbeamerfont{standout}{shape=\scshape}%
+  },
+  allsmallcaps/.code={%
+    \let\trigon@plaintitleformat\MakeLowercase%
+    \setbeamerfont{standout}{shape=\scshape}%
+    \PackageWarning{beamerthemetrigon}{%
+      Be aware that titleformat plain=allsmallcaps can lead to problems%
+    }
+  },
+  allcaps/.code={%
+    \let\trigon@plaintitleformat\MakeUppercase%
+    \setbeamerfont{standout}{shape=\normalfont}%
+    \PackageWarning{beamerthemetrigon}{%
+      Be aware that titleformat plain=allcaps can lead to problems%
+    }
+  },
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{titleformat}
+% Sets a standard format for titles, subtitles, section titles, frame titles,
+% and the text on standout ``plain'' frames.
+%    \begin{macrocode}
+\pgfkeys{
+  /trigon/titleformat/.code=\pgfkeysalso{
+    font/titleformat title=#1,
+    font/titleformat subtitle=#1,
+    font/titleformat section=#1,
+    font/titleformat frame=#1,
+    titleformat plain=#1,
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{usesourcefonts}
+% Select whereas the Source Sans Pro font is being loaded automatically or not.
+%    \begin{macrocode}
+\newif\if@trigon@usesourcefonts
+\pgfkeys{/trigon/.cd,
+  usesourcefonts/.is if=@trigon@usesourcefonts,
+  usesourcefonts=true,
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsubsection{Component sub-packages}
+%
+% Having processed the options, we can now load the component sub-packages of
+% the theme.
+%
+%    \begin{macrocode}
+\useinnertheme{trigon}
+\useoutertheme{trigon}
+\usecolortheme{trigon}
+\usefonttheme{trigon}
+%    \end{macrocode}
+%
+%
+% \subsubsection{Custom commands}
+%
+% The parent theme defines custom commands as their proper usage may depend
+% on multiple sub-packages.
+%
+% \begin{macro}{\metroset}
+% Allows the user to change options midway through a presentation.
+%    \begin{macrocode}
+\newcommand{\trigonset}[1]{\pgfkeys{/trigon/.cd,#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsubsection{Process package options}
+%
+%    \begin{macrocode}
+\ProcessOptionsBeamer
+\ProcessPgfOptions{/trigon}
+\if@trigon@usesourcefonts%
+  \RequirePackage[default,t1,semibold]{sourcesanspro}
+\fi
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+% \Finale
+\endinput

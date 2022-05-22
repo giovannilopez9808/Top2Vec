@@ -1,0 +1,169 @@
+% The only purpose of this file is to generate all page styles in order to make
+% the screenshots that need to be inserted in the documentation.
+
+\documentclass[aspectratio=169]{beamer}
+
+% Document metadata
+\title{Main title}
+\subtitle{A longer subtitle}
+\author[Neo]{Firstname Lastname}
+\institute{Name of your institution}
+\date{\today}
+% Image for the title page (use includegraphics option to properly size it)
+\titlegraphic{\includegraphics[height=\paperheight]{demo/library.jpg}}
+
+\usetheme[titleformat=smallcaps]{trigon}
+
+% Define logos to use (comment if no logo)
+\biglogo{demo/trigon_full.pdf} % Logo to display on titlepage only
+\smalllogo{demo/trigon_small.pdf} % Logo to display on regular frames
+
+
+% ------ If you want to change the theme default colors, do it here ------
+%\definecolor{tPrim}{HTML}{00843B}   % Green
+%\definecolor{tSec}{HTML}{289B38}    % Green light
+%\definecolor{tAccent}{HTML}{F07F3C} % Orange
+
+
+% ------ Packages used for this demo. Can be removed ------
+\usepackage{pgf-pie} % For pie charts
+\usepackage{caption} % For subfigures
+\usepackage{subcaption} % For subfigures
+
+
+%==============================================================================
+%                               BEGIN DOCUMENT
+%==============================================================================
+\begin{document}
+
+
+% TITLE FRAME
+%==============================================================================
+% Default option (style2)
+\titleframe
+
+% "Style1" layout
+{
+  \setbeamertemplate{title page}[titlesmallimage]
+  \setbeamertemplate{background}[titlesmallimage]
+  \frame[plain,noframenumbering]{\titlepage}
+  \setbeamertemplate{background}[\slidestyle]
+}
+
+% "Plain" layout
+{
+  \setbeamertemplate{title page}[bottomtrianglescolor]
+  \setbeamertemplate{background}[bottomtrianglescolor]
+  \frame[plain,noframenumbering]{\titlepage}
+  \setbeamertemplate{background}[\slidestyle]
+}
+
+
+% SECTION FRAME
+%==============================================================================
+% Default option (plain)
+\section{A big section title}
+
+% "Style1" option
+{
+  \setbeamertemplate{section page}[bigtriangles]
+  \setbeamertemplate{background}[bigtriangles]
+  \frame[plain,noframenumbering]{\sectionpage}
+  \setbeamertemplate{background}[\slidestyle]
+}
+
+% "Style2" option
+{
+  \setbeamertemplate{section page}[lefttriangles]
+  \setbeamertemplate{background}[lefttriangles]
+  \frame[plain,noframenumbering]{\sectionpage}
+  \setbeamertemplate{background}[\slidestyle]
+}
+
+% "Style3" option
+{
+  \setbeamertemplate{section page}[bottomtrianglesbw]
+  \setbeamertemplate{background}[bottomtrianglesbw]
+  \frame[plain,noframenumbering]{\sectionpage}
+  \setbeamertemplate{background}[\slidestyle]
+}
+
+
+% REGULAR SLIDE FRAME
+%==============================================================================
+% Default option (blank)
+\begin{frame}{Colors}
+  \framesubtitle{Example of color use}
+  \begin{columns}[c, onlytextwidth]
+    \column{0.47\textwidth}
+    Pie chart using primary theme color
+    \begin{itemize}
+      \item Automatically in theme
+      \item Easy variants using \texttt{color!x} to lighten or darken the colors
+    \end{itemize}
+    \hfill
+    \column{0.47\textwidth}
+    \center
+    \resizebox{0.9\textwidth}{!}{%
+      \begin{tikzpicture}
+        \pie[color={tPrim, tPrim!75, tPrim!50, tPrim!25},
+        rotate=90, hide number, text= legend]
+        {50/tPrim, 32/tPrim!75, 16/tPrim!50, 2/tPrim!25}
+      \end{tikzpicture}
+    }
+  \end{columns}
+\end{frame}
+
+% "Style1" option
+{
+  \setbeamertemplate{background}[smallcornertriangle]
+  \begin{frame}{Colors}
+    \framesubtitle{Example of color use}
+    \begin{columns}[c, onlytextwidth]
+      \column{0.47\textwidth}
+      Pie chart using primary theme color
+      \begin{itemize}
+        \item Automatically in theme
+        \item Easy variants using \texttt{color!x} to lighten or darken the colors
+      \end{itemize}
+      \hfill
+      \column{0.47\textwidth}
+      \center
+      \resizebox{0.9\textwidth}{!}{%
+        \begin{tikzpicture}
+          \pie[color={tPrim, tPrim!75, tPrim!50, tPrim!25},
+          rotate=90, hide number, text= legend]
+          {50/tPrim, 32/tPrim!75, 16/tPrim!50, 2/tPrim!25}
+        \end{tikzpicture}
+      }
+    \end{columns}
+  \end{frame}
+}
+
+% "Cyber" option
+{
+  \setbeamertemplate{background}[cyberbottom]
+  \begin{frame}{Colors}
+    \framesubtitle{Example of color use}
+    \begin{columns}[c, onlytextwidth]
+      \column{0.47\textwidth}
+      Pie chart using primary theme color
+      \begin{itemize}
+        \item Automatically in theme
+        \item Easy variants using \texttt{color!x} to lighten or darken the colors
+      \end{itemize}
+      \hfill
+      \column{0.47\textwidth}
+      \center
+      \resizebox{0.9\textwidth}{!}{%
+        \begin{tikzpicture}
+          \pie[color={tPrim, tPrim!75, tPrim!50, tPrim!25},
+          rotate=90, hide number, text= legend]
+          {50/tPrim, 32/tPrim!75, 16/tPrim!50, 2/tPrim!25}
+        \end{tikzpicture}
+      }
+    \end{columns}
+  \end{frame}
+}
+
+\end{document}

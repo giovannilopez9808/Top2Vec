@@ -7,18 +7,14 @@ import matplotlib as mpl
 from os.path import join
 
 params = get_params()
-filename = join(params["path models"],
-                params["tripadvisor model"])
+filename = join(params["path models"], params["tripadvisor model"])
 model = Top2Vec.load(filename)
-filename = join(params["path results"],
-                "tripadvisor_clustered.csv")
+filename = join(params["path results"], "tripadvisor_clustered.csv")
 clustered = read_csv(filename)
-centroids = get_centroid_topics(clustered,
-                                model)
+centroids = get_centroid_topics(clustered, model)
 bounds = list(range(0, 15))
 cmap = mpl.cm.gist_rainbow_r
-norm = mpl.colors.BoundaryNorm(bounds,
-                               cmap.N)
+norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
 plt.subplots(figsize=(13, 10))
 plt.scatter(clustered.x,
             clustered.y,
@@ -29,12 +25,13 @@ plt.scatter(clustered.x,
 for index, data in centroids.items():
     topic_name = data["topic name"]
     centroid = data["centroid"]
-    plt.text(centroid[0],
-             centroid[1],
-             topic_name,
-             fontsize=12,
-             weight='bold')
+    if "14" not in topic_name:
+        plt.text(centroid[0],
+                 centroid[1],
+                 topic_name,
+                 fontsize=12,
+                 weight='bold')
 plt.axis("off")
-filename = join(params["path graphics"],
-                "tripadvisor_clustered.png")
+filename = join(params["path graphics"], "tripadvisor_clustered.png")
+plt.tight_layout()
 plt.savefig(filename)

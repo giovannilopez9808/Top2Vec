@@ -7,7 +7,7 @@ import matplotlib as mpl
 from os.path import join
 
 params = get_params()
-filename = join(params["path data"],
+filename = join(params["path models"],
                 params["yahoo model"])
 model = Top2Vec.load(filename)
 filename = join(params["path results"],
@@ -25,7 +25,7 @@ plt.scatter(clustered.x,
             c=clustered["topic"],
             cmap=cmap,
             norm=norm,
-            s=1)
+            s=2)
 for index, data in centroids.items():
     topic_name = data["topic name"]
     centroid = data["centroid"]
@@ -37,4 +37,5 @@ for index, data in centroids.items():
 plt.axis("off")
 filename = join(params["path graphics"],
                 "yahoo_clustered.png")
+plt.tight_layout()
 plt.savefig(filename)

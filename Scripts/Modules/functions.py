@@ -1,7 +1,7 @@
 from pandas import DataFrame
 from typing import Callable
 from hdbscan import HDBSCAN
-from numpy import mean
+from numpy import median
 
 
 def get_centroid_topics(cluster: DataFrame, top2vec_model: Callable) -> dict:
@@ -13,8 +13,8 @@ def get_centroid_topics(cluster: DataFrame, top2vec_model: Callable) -> dict:
         subcluster = cluster[cluster["topic"] == topic]
         x = subcluster["x"].to_numpy()
         y = subcluster["y"].to_numpy()
-        c_x = mean(x)
-        c_y = mean(y)
+        c_x = median(x)
+        c_y = median(y)
         c = [c_x, c_y]
         centroids[topic]["centroid"] = c
         centroids[topic]["topic name"] = topic_name

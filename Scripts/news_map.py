@@ -7,7 +7,7 @@ import matplotlib as mpl
 from os.path import join
 
 params = get_params()
-filename = join(params["path data"],
+filename = join(params["path models"],
                 params["news model"])
 model = Top2Vec.load(filename)
 filename = join(params["path results"],
@@ -37,4 +37,5 @@ for index, data in centroids.items():
 plt.axis("off")
 filename = join(params["path graphics"],
                 "news_clustered.png")
+plt.tight_layout()
 plt.savefig(filename)

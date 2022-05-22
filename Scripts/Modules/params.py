@@ -3,7 +3,7 @@ from os import makedirs
 
 def get_params() -> dict:
     params = {
-        "path data": ".Data",
+        "path data": "Data",
         "path results": "Results",
         "path models": "Models",
         "path graphics": "Graphics",

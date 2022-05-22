@@ -7,7 +7,11 @@ __pycache__/
 *.out
 *.bbl
 *.blg
+<<<<<<< HEAD
 *.snm
 *.toc
 *.vrb
 *.nav
+=======
+*.toc
+>>>>>>> 483a26b869b28257695190ae433ce3d739078a5a

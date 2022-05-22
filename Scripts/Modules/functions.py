@@ -1,3 +1,6 @@
+"""
+Conjunto de funciones para el ploteo y organizacion de los clusters
+"""
 from pandas import DataFrame
 from typing import Callable
 from hdbscan import HDBSCAN
@@ -5,29 +8,54 @@ from numpy import median
 
 
 def get_centroid_topics(cluster: DataFrame, top2vec_model: Callable) -> dict:
+    """
+    Obtiene el centroide de los topicos dados
+    """
     centroids = {}
     topics = list(set(cluster["topic"]))
     for topic in topics:
         centroids[topic] = {}
-        topic_name = create_topic_name(top2vec_model.topic_words[topic], topic)
-        subcluster = cluster[cluster["topic"] == topic]
+        # Obtiene el nombre de los topicos
+        topic_name = create_topic_name(top2vec_model,
+                                       topic)
+        # Obtiene la posicion de cada palabra en el topic
+        subcluster = get_cluster_per_topic(cluster,
+                                           topic)
         x = subcluster["x"].to_numpy()
         y = subcluster["y"].to_numpy()
         c_x = median(x)
         c_y = median(y)
         c = [c_x, c_y]
+        # Guardado del centroide
         centroids[topic]["centroid"] = c
+        # Guardado del topico
         centroids[topic]["topic name"] = topic_name
     return centroids
 
 
-def create_topic_name(topic_words: list, index: int) -> str:
-    text = "{}: {}\n{}\n{}".format(index, topic_words[0], topic_words[1],
+def get_cluster_per_topic(cluster: DataFrame, topic: int) -> DataFrame:
+    """
+    Obtiene las posiciones correspondientes a cada palabra en el topic
+    """
+    return cluster[cluster["topic"] == topic]
+
+
+def create_topic_name(top2vec: Callable, topic: int) -> str:
+    """
+    Crea un string con las primeras tres palabras más representativas del cluster
+    """
+    topic_words = top2vec.topic_words[topic]
+    text = "{}: {}\n{}\n{}".format(topic,
+                                   topic_words[0],
+                                   topic_words[1],
                                    topic_words[2])
     return text
 
 
 def get_hierarchy_topic(top2vec_model: Callable, num_clusters: int) -> dict:
+    """
+    Obtiene un mapa con los clusters creatos por top2vec y los relaciona con el numero de cluster obtenido por UMAP
+    """
     hierarchy = top2vec_model.hierarchical_topic_reduction(num_clusters)
     hierarchy_dict = dict(
         sum([[(raw_id, i) for raw_id in mapping]

@@ -1,3 +1,6 @@
+"""
+Creacion del archivo tripadvisor_clustered.png a partir del archivo tripadvisor_clustered.csv
+"""
 from Modules.functions import get_centroid_topics
 from Modules.params import get_params
 import matplotlib.pyplot as plt
@@ -6,22 +9,32 @@ from top2vec import Top2Vec
 import matplotlib as mpl
 from os.path import join
 
+# Lectura de las rutas y nombres de los archivos
 params = get_params()
-filename = join(params["path models"], params["tripadvisor model"])
+# Nombre del modelo
+filename = join(params["path models"],
+                params["tripadvisor model"])
 model = Top2Vec.load(filename)
-filename = join(params["path results"], "tripadvisor_clustered.csv")
+# Nombre del archivo de clusters
+filename = join(params["path results"],
+                "tripadvisor_clustered.csv")
+# Cenrtroides de cada cluster
 clustered = read_csv(filename)
-centroids = get_centroid_topics(clustered, model)
+centroids = get_centroid_topics(clustered,
+                                model)
 bounds = list(range(0, 15))
 cmap = mpl.cm.gist_rainbow_r
-norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+norm = mpl.colors.BoundaryNorm(bounds,
+                               cmap.N)
 plt.subplots(figsize=(13, 10))
+# Ploteo de los clusters
 plt.scatter(clustered.x,
             clustered.y,
             c=clustered["topic"],
             cmap=cmap,
             norm=norm,
             s=1)
+# Ploteo de los topicos en el centroide de cada cluster
 for index, data in centroids.items():
     topic_name = data["topic name"]
     centroid = data["centroid"]
@@ -32,6 +45,8 @@ for index, data in centroids.items():
                  fontsize=12,
                  weight='bold')
 plt.axis("off")
-filename = join(params["path graphics"], "tripadvisor_clustered.png")
+# Guardado de la grafica
+filename = join(params["path graphics"],
+                "tripadvisor_clustered.png")
 plt.tight_layout()
 plt.savefig(filename)

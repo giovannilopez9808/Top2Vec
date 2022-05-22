@@ -1,3 +1,7 @@
+"""
+Conjunto de rutas y nombres de los archivos para los programas creados
+"""
+
 from os import makedirs
 
 
@@ -23,4 +27,7 @@ def get_params() -> dict:
 
 
 def mkdir(path: str) -> None:
+    """
+    Estandarizacion del mkdir
+    """
     makedirs(path, exist_ok=True)
